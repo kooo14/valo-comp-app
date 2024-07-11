@@ -15,12 +15,14 @@ const root = ReactDOM.createRoot(
 root.render(
   // <React.StrictMode>
   <BrowserRouter basename={process.env.PUBLIC_URL}>
-    <Routes>
-      <Route path="/team" Component={Team} />
-      {/* 404 Not Found */}
-      <Route path="*" Component={NotFound} />
-    </Routes>
-  </BrowserRouter>
+    <Team />
+    {/* <Routes> */}
+    {/* <Route path="/team" Component={Team} /> */}
+
+    {/* 404 Not Found */}
+    {/* <Route path="*" Component={NotFound} /> */}
+    {/* </Routes> */}
+  </BrowserRouter >
   // </React.StrictMode>
 );
 
