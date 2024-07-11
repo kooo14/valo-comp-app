@@ -32,7 +32,7 @@ function App() {
     const search = useLocation().search;
     const query = new URLSearchParams(search);
     const [name, setName] = useState(query.get('server') || "");
-    const { responseData, reFetch, setReFetch } = useFetchData("alldata", setNormalError, setErrorMessage);
+    const { responseData, reFetch, setReFetch } = useFetchData(`alldata?server_name=${name}`, setCriticalError, setErrorMessage);
     const { responseData: responseData2, reFetch: reFetch2, setReFetch: setReFetch2 } = useSendData("team", formState, setNormalError, setErrorMessage);
 
 

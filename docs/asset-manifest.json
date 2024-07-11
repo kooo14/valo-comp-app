@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/valo-comp-app/static/css/main.36ffff30.css",
-    "main.js": "/valo-comp-app/static/js/main.84e07c31.js",
+    "main.js": "/valo-comp-app/static/js/main.700cdb35.js",
     "static/js/453.a5d9b8ee.chunk.js": "/valo-comp-app/static/js/453.a5d9b8ee.chunk.js",
     "index.html": "/valo-comp-app/index.html",
     "main.36ffff30.css.map": "/valo-comp-app/static/css/main.36ffff30.css.map",
-    "main.84e07c31.js.map": "/valo-comp-app/static/js/main.84e07c31.js.map",
+    "main.700cdb35.js.map": "/valo-comp-app/static/js/main.700cdb35.js.map",
     "453.a5d9b8ee.chunk.js.map": "/valo-comp-app/static/js/453.a5d9b8ee.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.36ffff30.css",
-    "static/js/main.84e07c31.js"
+    "static/js/main.700cdb35.js"
   ]
 }
