@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Container } from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
@@ -8,8 +8,10 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Card from 'react-bootstrap/Card';
 
 import ErrorModal from '../Components/ErrorModal';
+import PlayerCard from '../Components/PlayerCard';
 
 import { useFetchData } from '../Hooks/useFetchData';
 import { useSendData } from '../Hooks/useSendData';
@@ -140,116 +142,133 @@ function App() {
         });
     };
 
+    useEffect(() => {
+        if (responseData2 && responseData2.success) {
+            // チーム編成成功時の処理
+            // ページの一番下にスクロール
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    }
+        , [responseData2])
+
+
     return (
-        <><Navbar expand="lg" className="bg-body-tertiary mb-2">
-            <Container>
-                <Navbar.Brand>VALORANT 自動編成ツール</Navbar.Brand>
-            </Container>
-        </Navbar >
+        <>
+            <Navbar expand="lg" style={{ backgroundColor: 'var(--secondary-color)' }} className="mb-2">
+                <Container>
+                    <Navbar.Brand style={{ color: 'var(--primary-color)' }}>VALORANT 自動編成ツール</Navbar.Brand>
+                </Container>
+            </Navbar>
+
             {/* サーバー名未指定エラー */}
             <ErrorModal show={isCriticalError} errorMessage={errorMessage} setShow={setCriticalError} showClose={false} />
 
             {/* その他の続行可能エラー */}
             <ErrorModal show={isNormalError} errorMessage={errorMessage} setShow={setNormalError} showClose={true} />
+
+
             <Container>
-                <Form onSubmit={handleCompButton}>
-                    <Row className='mb-3'>
-                        <Form.Group as={Col} controlId="map_name" className='m-3'>
-                            <Form.Label>マップ</Form.Label>
-                            <Form.Select
-                                aria-label="マップ選択"
-                                value={formState.map_name}
-                                onChange={handleInputChange}
-                            >
-                                {responseData && responseData.maps.map((map: string) => (
-                                    <option key={map}>{map}</option>
-                                ))}
-                            </Form.Select>
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="proficiency" className='m-3'>
-                            <Form.Label>キャラの熟練度</Form.Label>
-                            <div key="checkbox">
-                                <Form.Check
-                                    inline
-                                    label="じょうず"
-                                    id="good"
-                                    type="checkbox"
-                                    defaultChecked
-                                    onChange={handleInputChange}
-                                />
-                                <Form.Check
-                                    inline
-                                    label="ふつう"
-                                    id="normal"
-                                    type="checkbox"
-                                    onChange={handleInputChange}
-                                />
-                                <Form.Check
-                                    inline
-                                    label="へた"
-                                    id="bad"
-                                    type="checkbox"
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="minimum_priority" className='m-3'>
-                            <Form.Label>最低優先度</Form.Label>
-                            <Form.Control
-                                type="number"
-                                placeholder="最低優先度"
-                                value={formState.minimum_priority}
-                                onChange={handleInputChange}
-                            />
-                        </Form.Group>
-                    </Row>
-                    <Row className='mb-3'>
-                        <Col sm={10}>
-                            {Array.from({ length: 5 }, (_, i) => (
-                                <Form.Group as={Row} className='m-3 justify-content-md-center' controlId={`player_select_${i + 1}`} key={i}>
-                                    <Form.Label column sm={2}>{`プレイヤー${i + 1}`}</Form.Label>
-                                    <Col sm={10}>
-                                        <Form.Select
-                                            aria-label={`プレイヤー${i + 1}選択`}
-                                            value={formState.members[i]}
-                                            onChange={e => handlePlayerChange(i, e.target.value)}
-                                        >
-                                            <option value="">選択してください</option>
-                                            {responseData && responseData.members.map((member: string) => (
-                                                <option key={member}>{member}</option>
-                                            ))}
-                                        </Form.Select>
-                                    </Col>
+                <div className='mb-3'></div> {/* 余白用 */}
+                <Card>
+                    <Card.Body>
+                        <Form onSubmit={handleCompButton}>
+                            <Row className='mb-3'>
+                                <Form.Group as={Col} controlId="map_name" className='m-3'>
+                                    <Form.Label>マップ</Form.Label>
+                                    <Form.Select
+                                        aria-label="マップ選択"
+                                        value={formState.map_name}
+                                        onChange={handleInputChange}
+                                    >
+                                        {responseData && responseData.maps.map((map: string) => (
+                                            <option key={map}>{map}</option>
+                                        ))}
+                                    </Form.Select>
                                 </Form.Group>
-                            ))}
-                        </Col>
-                        <Col sm={2} className='d-flex align-items-center'>
-                            <Col className='d-flex flex-column align-items-end justify-content-end h-100'>
-                                <Button variant="primary" type="submit">
-                                    編成
-                                </Button>
-                            </Col>
-                        </Col>
-                    </Row>
-                </Form>
 
+                                <Form.Group as={Col} controlId="proficiency" className='m-3'>
+                                    <Form.Label>キャラの熟練度</Form.Label>
+                                    <div key="checkbox">
+                                        <Form.Check
+                                            inline
+                                            label="上手"
+                                            id="good"
+                                            type="checkbox"
+                                            defaultChecked
+                                            onChange={handleInputChange}
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="普通"
+                                            id="normal"
+                                            type="checkbox"
+                                            onChange={handleInputChange}
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="下手"
+                                            id="bad"
+                                            type="checkbox"
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
+                                </Form.Group>
+
+                                <Form.Group as={Col} controlId="minimum_priority" className='m-3'>
+                                    <Form.Label>最低優先度</Form.Label>
+                                    <Form.Control
+                                        type="number"
+                                        placeholder="最低優先度"
+                                        value={formState.minimum_priority}
+                                        onChange={handleInputChange}
+                                    />
+                                </Form.Group>
+                            </Row>
+                            <Row className='mb-3'>
+                                <Col sm={10}>
+                                    {Array.from({ length: 5 }, (_, i) => (
+                                        <Form.Group as={Row} className='m-3 justify-content-md-center' controlId={`player_select_${i + 1}`} key={i}>
+                                            <Form.Label column sm={3}>{`プレイヤー${i + 1}`}</Form.Label>
+                                            <Col sm={9}>
+                                                <Form.Select
+                                                    aria-label={`プレイヤー${i + 1}選択`}
+                                                    value={formState.members[i]}
+                                                    onChange={e => handlePlayerChange(i, e.target.value)}
+                                                >
+                                                    <option value="">選択してください</option>
+                                                    {responseData && responseData.members.map((member: string) => (
+                                                        <option key={member}>{member}</option>
+                                                    ))}
+                                                </Form.Select>
+                                            </Col>
+                                        </Form.Group>
+                                    ))}
+                                </Col>
+                                <div className='text-end'>
+                                    <Button variant="primary" type="submit">
+                                        編成する
+                                    </Button>
+                                </div>
+                            </Row>
+                        </Form>
+                    </Card.Body>
+                </Card>
                 {reFetch2 && "チーム編成中..."}
 
+                {/* <hr /> */}
+                <div className='mt-5'></div> {/* 余白用 */}
                 {responseData2 && (
                     <>
                         {/* responseData2は以下のフォーマットである
                         {success: true, team: [["のなか", 1, "スカイ", 1], ["ともや", 1, "サイファー", 1], ["ぱーぼん", 1, "アストラ", 1], ["こーさん", 1, "セージ", 2], ["ぽめ", 1, "レイズ", 1]], priority: 6} */}
-                        <h2>チーム編成完了</h2>
-                        優先度: {responseData2.priority}
-                        <ul>
-                            {responseData2.team.map((player: any) => (
-                                <li key={player[0]}>{player[0]}: {player[2]}</li>
-                            ))}
-                        </ul>
+                        <h2 className='mb-3'>チーム編成結果</h2>
+                        {responseData2.team.map((player: any) => (
+                            <PlayerCard playerName={player[0]} proficiency={player[1]} agent={player[2]} priority={player[3]} key={player[0]} />
+                        ))}
                     </>
                 )}
+
+                <div className='mb-5'></div> {/* 余白用 */}
             </Container>
 
         </>

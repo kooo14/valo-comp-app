@@ -1,0 +1,89 @@
+/* src/styles.css */
+:root {
+  --primary-color: #ff4655; /* VALORANT Red */
+  --secondary-color: #1f2326; /* Dark Grey */
+  --background-color: #0f1923; /* Almost Black */
+  --text-color: #f4f4f4; /* White */
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.card {
+  background-color: var(--secondary-color);
+  border-color: var(--primary-color);
+}
+
+.card-header {
+  color: var(--text-color);
+}
+
+.navbar {
+    background-color: var(--secondary-color);
+}
+
+.navbar-brand {
+    color: var(--text-color) !important;
+    font-weight: bold;
+}
+
+.form-control,
+.form-select,
+.form-check-label,
+.form-label {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+button.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+button.btn-primary:hover {
+    background-color: #ff001a;
+    border-color: #ff001a;
+}
+
+
+.modal-content {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+
+
+@media (max-width: 768px) {
+  .card {
+    font-size: 0.9rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .form-control {
+    font-size: 0.8rem;
+  }
+
+  .form-label {
+    font-size: 0.8rem;
+  }
+}
+
+.h1,h2,h3,h4 {
+    color: var(--text-color);
+}
+
+#additional-data {
+    color: var(--text-color);
+}
