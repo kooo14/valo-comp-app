@@ -12,14 +12,14 @@ export const useSendData = (endpoint: string, data: any, setError: (error: boole
                 .then((response: any) => {
                     setResponseData(response.data);
                     console.log(response.data)
-
+                    setReFetch(false);
                 })
                 .catch((error: any) => {
                     console.error(error);
                     setError(true);
                     setErrorMessage(error.code + "," + error.message);
+                    setReFetch(false);
                 });
-            setReFetch(false);
         }
     }, [reFetch]);
 

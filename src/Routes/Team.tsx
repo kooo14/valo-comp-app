@@ -16,6 +16,7 @@ import PlayerCard from '../Components/PlayerCard';
 import { useFetchData } from '../Hooks/useFetchData';
 import { useSendData } from '../Hooks/useSendData';
 
+import axios from 'axios';
 
 function App() {
     const [formState, setFormState] = useState({
@@ -143,14 +144,21 @@ function App() {
     };
 
     useEffect(() => {
-        if (responseData2 && responseData2.success) {
-            // チーム編成成功時の処理
-            // ページの一番下にスクロール
-            window.scrollTo(0, document.body.scrollHeight);
+        if (responseData2) {
+            if (responseData2.success) {
+                // チーム編成成功時の処理
+                // ページの一番下にスクロール
+                window.scrollTo(0, document.body.scrollHeight);
+
+            }
+            else {
+                // チーム編成失敗時の処理
+                setNormalError(true);
+                setErrorMessage("チーム編成に失敗しました。条件を変更して再度お試しください。");
+            }
         }
     }
         , [responseData2])
-
 
     return (
         <>
@@ -257,7 +265,7 @@ function App() {
 
                 {/* <hr /> */}
                 <div className='mt-5'></div> {/* 余白用 */}
-                {responseData2 && (
+                {responseData2 ? (
                     <>
                         {/* responseData2は以下のフォーマットである
                         {success: true, team: [["のなか", 1, "スカイ", 1], ["ともや", 1, "サイファー", 1], ["ぱーぼん", 1, "アストラ", 1], ["こーさん", 1, "セージ", 2], ["ぽめ", 1, "レイズ", 1]], priority: 6} */}
@@ -266,7 +274,8 @@ function App() {
                             <PlayerCard playerName={player[0]} proficiency={player[1]} agent={player[2]} priority={player[3]} key={player[0]} />
                         ))}
                     </>
-                )}
+                ) : <></>}
+
 
                 <div className='mb-5'></div> {/* 余白用 */}
             </Container>
