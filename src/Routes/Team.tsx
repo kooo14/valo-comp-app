@@ -253,7 +253,7 @@ function App() {
                                     ))}
                                 </Col>
                                 <div className='text-end'>
-                                    <Button variant="primary" type="submit">
+                                    <Button variant="danger" type="submit">
                                         編成する
                                     </Button>
                                 </div>

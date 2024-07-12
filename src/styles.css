@@ -47,7 +47,6 @@ button.btn-primary:hover {
     border-color: #ff001a;
 }
 
-
 .modal-content {
   background-color: var(--secondary-color);
   color: var(--text-color);
